@@ -1,0 +1,53 @@
+23.08.28
+
+dbeaver
+
+download windows(zip)
+
+압축 해제
+dev 아래
+
+exe 실행
+ 
+ SQL Developer > Oracle 전용(MYSQL 지원)
+ DBeaver > 모든 데이터베이스 범용
+ 
+ 데이터베이스 -> 새 데이터베이스 연결
+ oracle 선택 next
+ 
+ localhost
+ 
+ 포트 1521
+ 
+ Database xe
+ 
+ test Connection
+ 
+폰트 설정 윈도우 -> 설정
+->user interface -> appearance
+dbeaver font monospace font
+
+
+SELECT * FROM TBLTODO t ;
+
+INSERT INTO TBLTODO (seq, title, adddate, completedate)
+	VALUES (21, '오라클 복습하기', sysdate, null);
+	
+Auto commit
+개발자가 커밋 명령어를 실행하지 않더라도, insert/update/delete를 실행할때마다 자동으로 commit을 호출하는 기능
+- 클라이언트 틀마다 설정이 다르다.
+- SQLDeveloper > Auto commit (false)
+- DBeaver > Auto - commit(true)
+
+- 가이드 > 알단 끈다.
+	
+	윈도우 설정 -> 연결=-> 연결 유형 -> auto~ 체크 해제
+	데ㅇ;ㅣ터베이스 트랜젝션 모드 메뉴ㅜ얼~
+	
+	commit 하고 반영 확인하기
+	
+	맨 뒤에 자동 문자 지우기
+	윈도우 설정 편집기 sql 편집기 sql 자동완성
+	맨 밑ㅇ에 insert tavle ~ n/a
+	
+	파일 연결 안되면 상단 드럼통 설정해서 연결하기
