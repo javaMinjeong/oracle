@@ -1,0 +1,16 @@
+23.08.25
+
+파일폴더압축
+
+Oracle11g xe (Expression Editor)
+
+DISK1 setup 설치
+기본값 설치
+
+PW 설정
+
+SYS(회장님)와 SYSTEM(사장님)에 사용됨 -> 최고 관리자
+- 공통 비밀번호 : java1234
+
+SQL Developer - 이클립스랑 같은 dev 이동 exe 파일 환경설정 임포트 아니오
+바로가기 만들어두기

@@ -1,0 +1,9 @@
+윈도우 설정 sql 편집기 sql 포맷 볼드체 해제
+
+select * from table ; 
+자동완성 - > insert~ names 해제
+
+메서드(Method)
+- 클래스 안에서 정의한 함수
+함수(Function)
+- 어딘가에 소속되어 있지 않고, 독립적으로 존재
