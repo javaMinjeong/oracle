@@ -9,7 +9,7 @@
 -- 1. tblCountry. 아시아(AS)와 유럽(EU)에 속한 나라의 개수?? -> 7개
         
 	SELECT
-		count(*)
+		count(continent)
 	FROM tblcountry
 		WHERE continent = 'AS' AND continent = 'EU';
 	
