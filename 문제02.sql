@@ -3,8 +3,6 @@
 
 -- distinct
 
-
-
 --요구사항.001.employees
 --직업이 어떤것들이 있는지 가져오시오. > job_id
 
@@ -16,7 +14,7 @@ SELECT DISTINCT job_id FROM employees;
 SELECT
 	DISTINCT department_id
 FROM employees
-	WHERE hire_date = '2002-01-01' BETWEEN hire_date = '2004-12-31';
+	WHERE  hire_date BETWEEN '2002-01-01'  and  '2004-12-31';
 
 
 
@@ -33,8 +31,8 @@ FROM employees
 
 SELECT 
 	DISTINCT jikwi
-FROM tblinsa;
-	WHERE ssn = '%-1%';
+FROM tblinsa
+	WHERE ssn like '%-1%';
 
 --요구사항.005.tblInsa
 --수당 20만원 넘는 직원들은 어디 삽니까? > sudang + city   

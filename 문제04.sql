@@ -74,11 +74,17 @@ FROM tblinsa
 	
 
 **--5. 장급(부장,과장)의 평균 급여와 사원급(대리,사원)의 평균 급여의 차액? tblInsa > 1,150,320
---case end...?
+--case end, to_char...?
 	SELECT
-		avg(basicpay)
-	FROM tblinsa
-		WHERE 	
+        avg(case
+            when jikwi in ('부장','과장')  then basicpay
+        end)    
+           - 		
+        avg(case
+            when jikwi in ('대리','사원') then basicpay
+        end)
+      FROM tblinsa;
+		
 		
 		
 
