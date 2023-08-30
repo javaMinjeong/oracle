@@ -11,3 +11,5 @@ select * from table ;
 윈도우 설정 표현방식 grid 
 mark~ 해제
 color ~ 체크
+대문자 자동완성
+윈도우 자동완성 inset case lower case
