@@ -65,10 +65,15 @@ SELECT seqNum.nextVal FROM dual;
 
 DROP SEQUENCE seqTest;
 
+CREATE SEQUENCE seqtest START wilth;
+
 CREATE SEQUENCE seqTest
 				--INCREMENT BY -1;
 				--START WITH 10;
 				--MAXVALUE 10			--10넘을시 : ORA-08004: sequence SEQTEST.NEXTVAL exceeds MAXVALUE and cannot be instantiated	
 				--CYCLE				-- pk에는 사용 불가!!
 				cache 20;
-SELECT seqTest.nextVal FROM dual;
+SELECT seqTest.nextVal FROM dual;	==1,2,3,4,5,6 
+
+--ORA-12514, TNS:listener does not currently know of service requested in connect descriptor 오라클 서버가 동작을 안함
+SELECT * FROM tblinsa;
