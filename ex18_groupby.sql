@@ -86,3 +86,102 @@ FROM tblinsa
 	GROUP BY buseo;
 
 -- 다중 그룹
+SELECT
+	buseo,
+	jikwi,
+	count(*)
+FROM tblinsa
+	GROUP BY buseo, jikwi, 
+		ORDER BY buseo, jikwi;
+	
+
+
+	
+-- 급여별 그룹
+-- 100만원 이하
+-- 100만원 ~ 200만원
+-- 200만원 이상	
+	
+SELECT
+	basicpay,
+	count(*)
+FROM tblinsa
+	GROUP BY basicpay;
+
+SELECT
+	basicpay,
+	floor(basicpay/1000000)
+FROM tblinsa;
+
+SELECT
+	(floor(basicpay/1000000)+1)*100 || '만원 이하' AS money ,
+	count(*)
+FROM tblinsa 
+	GROUP BY floor(basicpay/1000000);
+	
+--tblinsa. 남자/여자 직원수?
+SELECT
+	substr(ssn,8,1),
+	count(*)
+FROM tblinsa
+	GROUP BY substr(ssn, 8 ,1);
+	
+SELECT
+	count(CASE
+		WHEN completedate IS NOT NULL THEN 1		
+	END),
+	count(CASE
+		WHEN completedate IS NULL THEN 1
+	END)
+FROM tbltodo;
+
+
+SELECT
+	CASE
+		WHEN completedate IS NOT NULL THEN 1
+		ELSE 2
+	END,
+	count(*)
+FROM tbltodo
+	GROUP BY CASE
+				WHEN completedate IS NOT NULL THEN 1
+				ELSE 2
+			 END;
+			 
+			
+/*
+  	select 컬럼리스트		5. 컬럼 지정
+ 	from 테이블			1. 테이블 지정
+ 	where 조건			2. 조건 지정( 레코드에 대한 조건 - 개인 조건 > 컬럼)
+ 	group by 기준		3. (레코드끼리)그룹을 나눈다.
+	having 조건			4. 조건 지정(그룹에 대한 조건 - 그룹 조건 > 집계 함수)
+	order by 정렬 기준;	6. 순서대로 
+  
+  
+  
+ */
+			
+
+--SELECT 
+--	count(*)
+--FROM tblinsa
+--	WHERE basicpay >= 1500000;
+
+			
+SELECT							--4. 각 그룹별 > 집계 함수 사용
+	buseo,
+	round(avg(basicpay))
+FROM tblinsa					--1. 60명의 데이터를 가져온다
+	WHERE basicpay >= 1500000	--2. 60명을 대상으로 검사한다
+		GROUP BY buseo;			--3. 2번을 통과한 사람들(27명) 대상으로 그룹을 짓는다.
+		
+
+SELECT									--4.	
+	round(avg(basicpay))
+FROM tblinsa							--1.	
+	GROUP BY buseo						--2.
+		HAVING avg(basicpay) >= 1500000; --3. 그룹에 대한 조건
+
+			
+			
+			
