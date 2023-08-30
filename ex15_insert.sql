@@ -109,9 +109,10 @@ SELECT * FROM tblmemoCopy;
 
 INSERT INTO tblmemoCopy SELECT * FROM tblmemo; -- Sub Query
 
---9. 
+--9. 위험함!!!! 차라리 8번이 남
 -- tblMemo 테이블 > 복사 > 새 테이블 생성(tblMemoCopy2)
-
+-- 제약 사항이 복사가 안된다.
+-- 임시 테스트용으로만 사용 > 다량의 데이터, 임시 데이터
 CREATE TABLE tblmemoCopy2 AS SELECT * FROM tblmemo;
 
 SELECT * FROM tblmemoCopy2;
