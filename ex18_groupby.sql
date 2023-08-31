@@ -178,10 +178,105 @@ FROM tblinsa					--1. 60명의 데이터를 가져온다
 
 SELECT									--4.	
 	round(avg(basicpay))
-FROM tblinsa							--1.	
-	GROUP BY buseo						--2.
-		HAVING avg(basicpay) >= 1500000; --3. 그룹에 대한 조건
+FROM tblinsa							--1. 60명	
+	GROUP BY buseo						--2. 60명 > 그룹
+		HAVING avg(basicpay) >= 1500000; --3. 집합(그룹)에 대한 조건 > 집계 함수 조건
 
-			
-			
-			
+		
+-- 부서의 인원수가 10명이 넘는 결과
+SELECT
+	BUSEO,
+	count(*)
+FROM tblinsa
+	GROUP BY buseo
+		HAVING COUNT(*) >= 10 ;		
+	
+-- 부서의 부장, 과장(where) 인원수가 3명이 넘는(having) 결과
+SELECT
+	buseo,
+	COUNT(*)
+FROM tblinsa
+	WHERE jikwi IN ('과장','부장')
+		GROUP BY BUSEO
+			HAVING COUNT(*) >= 3;
+
+-- job id 그룹 > 통계		
+SELECT
+job_id,
+	count(*) AS 인원수,
+	round(avg(salary)) AS 평균급여
+FROM HR.EMPLOYEES	
+	GROUP BY JOB_ID;	
+
+--시도별 인원수?
+SELECT 
+*
+FROM tbladdressbook;
+
+-- substr(컬럼, 시작위치, 문자개수)
+SELECT SUBSTR(ADDRESS, 1, INSTR(ADDRESS, ' ') -1) FROM tbladdressbook;
+
+SELECT 
+	SUBSTR(ADDRESS, 1, INSTR(ADDRESS, ' ')-1) AS 시도,
+	count(*) AS 인원수
+FROM tbladdressbook
+	GROUP BY SUBSTR(ADDRESS, 1, INSTR(ADDRESS, ' ') -1)
+		ORDER BY 인원수 desc;	-- 시도// 1// SUBSTR(ADDRESS, 1, INSTR(ADDRESS, ' ') -1) 가능
+
+-- tblinsa 부서별/직급별 인원수를 가져오시오.
+
+/*
+  
+ [부서명]	[총인원] [부장] [과장] [대리] [사원] 
+  기획부	  6	     1	   1	 1	  2	
+  
+ */		
+
+--1번		
+SELECT
+	buseo AS 부서명,
+	count(*) AS 총인원,
+	COUNT(DECODE(JIKWI, '부장', 1)) AS 부장,
+	COUNT(DECODE(JIKWI, '과장', 1)) AS 과장,
+	COUNT(DECODE(JIKWI, '대리', 1)) AS 대리,
+	COUNT(DECODE(JIKWI, '사원', 1)) AS 사원	
+FROM tblinsa
+	GROUP by buseo;	
+
+--2번
+SELECT
+	buseo,
+	JIKWI,
+	COUNT(*)
+FROM tblinsa
+	GROUP BY BUSEO, JIKWI
+		ORDER BY BUSEO, JIKWI;
+		
+/*
+  	
+ 	roll up()	//group by 사용할때만 가능한 함수 
+  	- group by의 집게 결과를 좀 더 자세하게 반환
+  	- 그룹별 중간 통계
+  	
+ */	
+	
+SELECT
+	BUSEO,
+	COUNT(*),
+	SUM(BASICPAY),
+	ROUND(AVG(BASICPAY)),
+	MAX(BASICPAY),
+	MIN(BASICPAY)
+FROM tblinsa
+	GROUP BY ROLLUP(BUSEO);
+	
+SELECT
+	BUSEO,
+	JIKWI,
+	COUNT(*),
+	SUM(BASICPAY),
+	ROUND(AVG(BASICPAY)),
+	MAX(BASICPAY),
+	MIN(BASICPAY)
+FROM tblinsa
+	GROUP BY ROLLUP(BUSEO,JIKWI);
