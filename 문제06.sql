@@ -1,14 +1,20 @@
 --1. traffic_accident. 각 교통 수단 별(지하철, 철도, 항공기, 선박, 자동차) 발생한 총 교통 사고 발생 수, 총 사망자 수, 사건 당 평균 사망자 수를 가져오시오.
 	
-	SELECT * FROM traffic_accident;
+	SELECT
+		trans_type  ,	--AS 교통수단
+		sum(total_acct_num),	-- AS 총교통사고발생수
+		sum(death_person_num) ,	--AS 총사망자수
+		round(avg(death_person_num)) --AS 평균사망자수
+	FROM traffic_accident
+			GROUP BY trans_type;
         
         
 
 --2. tblZoo. 종류(family)별 평균 다리의 갯수를 가져오시오.
 
     SELECT
-   		family,
-   		round(avg(leg))
+   		family ,	--AS 종류
+   		round(avg(leg)) --AS 평균다리갯수
   	FROM tblzoo
   		GROUP by family ;
     
@@ -17,19 +23,35 @@
 --3. tblZoo. 체온이 변온인 종류 중 아가미 호흡과 폐 호흡을 하는 종들의 갯수를 가져오시오.
 
   SELECT
-   *
-  FROM tblzoo
- 	GROUP BY ;
-        
+  		breath ,	--AS 호흡방법
+   		count(*) 
+  	FROM tblzoo
+  		WHERE thermo = 'variable' 
+  			GROUP BY breath
+  				HAVING breath IN ('gill','lung') ;
+  			
+   SELECT
+        breath ,	--AS 호흡방법
+         count(*) 
+     FROM tblzoo
+        WHERE thermo = 'variable' AND (breath IN ('gill','lung'))
+           GROUP BY breath ; 	
+    				
 
+        
+SELECT * FROM tblzoo
 --4. tblZoo. 사이즈와 종류별로 그룹을 나누고 각 그룹의 갯수를 가져오시오.
 
-        
-        
-        
-
-
-        
+SELECT
+	family ,	--AS 종류
+	sizeof ,	--AS 사이즈
+	count(*)
+FROM tblzoo
+	WHERE sizeof IN ('small','medium','large')
+		GROUP BY family, sizeof
+    		ORDER BY family, sizeof;
+    	
+    
         
 
 --12. tblAddressBook. 관리자의 실수로 몇몇 사람들의 이메일 주소가 중복되었다. 중복된 이메일 주소만 가져오시오.
@@ -41,7 +63,14 @@
             
 
 --15. tblAddressBook. 성씨별 인원수가 100명 이상 되는 성씨들을 가져오시오.
-
+	
+SELECT
+	name,
+ 	COUNT(*)
+FROM tblAddressBook
+	WHERE name 
+		GROUP BY name
+			ORDER BY ; 	
 
 
 
