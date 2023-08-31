@@ -161,3 +161,56 @@ SELECT
 	name, buseo, basicpay,
 	(SELECT round(avg(basicpay)) FROM tblinsa WHERE buseo = a.buseo) AS avg
 FROM tblinsa a;
+
+SELECT * FROM tblmen;
+SELECT * FROM tblwonen;
+
+--남자(이름, 키, 몸무게) + 여자(이름, 키 ,몸무게)
+SELECT
+	name AS "남자 이름",
+	height AS "남자 키",
+	weight AS "남자 몸무게",
+	couple AS "여자 이름",
+	(SELECT height FROM tblwomen WHERE name = tblmen.couple)AS "여자 키",
+	(SELECT weight FROM tblwomen WHERE name = tblmen.couple)AS "여자 몸무게"
+FROM tblmen;
+
+
+/*
+ 
+	서브쿼리 삽입 위치
+ 	 1. 조건절 > 비교값으로 사용
+ 	 	a. 반환값이 1행 1열 > 단일값 반환 > 상수 취급 > 값 1개
+ 	 	b. 반환값이 n행 1열 > 다중값 반환 > 열거형 비교 > in 사용
+ 	 	c. 반환값이 1행 N열 > 다중값 반환 > 그룹 비교 > N컬럼 : N컬럼
+ 	 	d. 반환값이 N행 N열 > 다중값 반환 > 2+3 > in + 그룹비교
+ 	 	
+ 	 2. 컬럼리스트 > 컬럼값(출력값)으로 사용	
+ 	 	- 반드시 결과값이 1행 1열이어야 한다. > 스칼라 쿼리 > 원자값 반환
+ 	 	 a. 정적 쿼리			  > 모든 행에 동일한 값을 반환
+ 	 	 b. 상관 서브 쿼리(*****) > 서브쿼리의 값과 바깥쪽 메인쿼리의 값을 서로 연결
+ 	 
+ 	 3. FROM절에서 사용
+ 	 	- 서브쿼리의 결과 테이블을 하나의 테이블이라고 생각하고 메인 쿼리가 실행된다.
+ 	 	- 인라인 뷰(Inline View)
+ 
+ */
+
+SELECT
+	*									--4.
+FROM									--1.
+	(
+		SELECT name, buseo				--3.
+		FROM tblinsa					--2.
+	);
+
+-- 인라인뷰의 컬럼 별칭 > 바깥쪽 메인 쿼리에서 그대로 전달 + 사용
+--ORA-00904: "SSN": invalid identifier // as 반드시 붙여야함
+SELECT name, gender
+FROM (SELECT name, substr(ssn, 1, 8) AS gender FROM tblinsa);
+
+SELECT
+	name, height, couple,
+	(SELECT height FROM tblwomen WHERE name = tblmen.couple) AS height2
+FROM tblmen
+	ORDER BY height2;	-- 별칭 동일하게 안정하기!!! // ORA-00960: ambiguous column naming in select list // height가 겹침 
