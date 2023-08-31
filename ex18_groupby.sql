@@ -280,3 +280,35 @@ SELECT
 	MIN(BASICPAY)
 FROM tblinsa
 	GROUP BY ROLLUP(BUSEO,JIKWI);
+	
+/*
+ 
+  	cube()	
+  	- group by의 집게 결과를 좀 더 자세하게 반환
+  	- 그룹별 중간 통계
+  
+ */
+
+SELECT
+	BUSEO,
+	COUNT(*),
+	SUM(BASICPAY),
+	ROUND(AVG(BASICPAY)),
+	MAX(BASICPAY),
+	MIN(BASICPAY)
+FROM tblinsa
+	GROUP BY CUBE(BUSEO);
+	
+SELECT
+	BUSEO,
+	JIKWI,
+	COUNT(*),
+	SUM(BASICPAY),
+	ROUND(AVG(BASICPAY)),
+	MAX(BASICPAY),
+	MIN(BASICPAY)
+FROM tblinsa
+	GROUP BY CUBE(BUSEO,JIKWI);
+
+-- rollup > 다중 그룹 컬럼 > 수직관계(전체인원 총계, 부서별 총계)
+-- cube > 다중 그룹 컬럼 > 수평관계(전체인원 총계, 부서별 총계, 직위별 총계)
