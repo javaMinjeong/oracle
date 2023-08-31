@@ -64,8 +64,9 @@ SELECT * FROM tblwomen WHERE couple = (SELECT NAME FROM tblmen WHERE HEIGHT = 16
  	 1. 조건절 > 비교값으로 사용
  	 	a. 반환값이 1행 1열 > 단일값 반환 > 상수 취급 > 값 1개
  	 	b. 반환값이 n행 1열 > 다중값 반환 > 열거형 비교 > in 사용
- 	 	c. 반환값이 1행 N열 > 다중값 반환
- 	 	d. 반환값이 N행 N열 > 다중값 반환
+ 	 	c. 반환값이 1행 N열 > 다중값 반환 > 그룹 비교 > N컬럼 : N컬럼
+ 	 	d. 반환값이 N행 N열 > 다중값 반환 > 2+3 > in + 그룹비교
+ 	 	
   
  */
 
@@ -97,3 +98,66 @@ SELECT
 FROM tblinsa
 	WHERE BUSEO IN (SELECT BUSEO FROM tblinsa WHERE BASICPAY >= 2600000);
 
+-- '홍길동'과 같은 지역, 같은 부서인 직원 명단을 가져오시오. (서울, 기획부)
+SELECT * FROM tblinsa
+	WHERE city = '서울' AND BUSEO = '기획부';
+
+SELECT * FROM tblinsa
+	WHERE city = (SELECT city FROM tblinsa WHERE name = '한석봉')
+		AND BUSEO = (SELECT buseo FROM tblinsa WHERE name = '한석봉');	-- 두개 한번에 고치기 귀찮음
+
+--ORA-00913: too many values		
+SELECT * FROM tblinsa
+	WHERE (city, buseo) = (SELECT city, buseo FROM tblinsa WHERE name = '홍길동' );
+	-- where 2:2
+
+-- 급여가 200만원 이상 받은 직원과 같은 부서, 같은 지역 > 직원 명단
+
+SELECT
+	*
+FROM tblinsa
+	WHERE (buseo, city) in (SELECT buseo, city FROM tblinsa WHERE basicpay >= 2600000);
+/*
+ 
+	서브쿼리 삽입 위치
+ 	 1. 조건절 > 비교값으로 사용
+ 	 	a. 반환값이 1행 1열 > 단일값 반환 > 상수 취급 > 값 1개
+ 	 	b. 반환값이 n행 1열 > 다중값 반환 > 열거형 비교 > in 사용
+ 	 	c. 반환값이 1행 N열 > 다중값 반환 > 그룹 비교 > N컬럼 : N컬럼
+ 	 	d. 반환값이 N행 N열 > 다중값 반환 > 2+3 > in + 그룹비교
+ 	 	
+ 	 2. 컬럼리스트 > 컬럼값(출력값)으로 사용	
+ 	 	- 반드시 결과값이 1행 1열이어야 한다. > 스칼라 쿼리 > 원자값 반환
+ 	 	 a. 정적 쿼리 > 모든 행에 동일한 값을 반환
+ 	 	 b. 상관 서브 쿼리(*****) > 서브쿼리의 값과 바깥쪽 메인쿼리의 값을 서로 연결
+ 	 	
+ 
+ */
+
+SELECT
+	name, buseo, basicpay,
+	(SELECT * FROM dual)
+FROM tblinsa
+
+SELECT
+	name, buseo, basicpay,
+	(SELECT round(avg(basicpay)) FROM tblinsa) AS avg
+FROM tblinsa;
+
+--ORA-01427: single-row subquery returns more than one row
+SELECT
+	name, buseo, basicpay,
+	(SELECT jikwi FROM tblinsa)
+FROM tblinsa;
+
+
+SELECT
+	name, buseo, basicpay,
+	(SELECT jikwi FROM tblinsa WHERE num = 1001)
+FROM tblinsa;
+
+
+SELECT
+	name, buseo, basicpay,
+	(SELECT round(avg(basicpay)) FROM tblinsa WHERE buseo = a.buseo) AS avg
+FROM tblinsa a;
