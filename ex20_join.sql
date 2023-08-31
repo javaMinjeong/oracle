@@ -278,7 +278,88 @@ SELECT * FROM tblcustomer, tblsales;	--oracle 전용 ,로 표현
 
 /*
  
-  	2. 내부 조안, INNER JOIN 
+  	2. 내부 조인, INNER JOIN 
   	- 단순 조인에서 유효한 레코드만 추출한 조인
+  	
+  	select 컬럼리스트 from 테이블A cross join 테이블B;
+  	
+  	select 컬럼리스트 from 테이블A inner join 테이블B on 테이블B on 테이블A.PK = 테이블B.PK;	//부모 pk 자식 fk 똑같아야함
+  	select 
+  		컬럼리스트
+  	from 테이블A
+  		inner join 테이블B
+  		 on 테이블B on 테이블A.PK = 테이블B.PK;	
   
  */
+
+--직원 테이블, 프로젝트 테이블
+SELECT
+*
+FROM tblstaff
+	CROSS JOIN	tblproject;
+
+SELECT
+	tblstaff.seq,
+	tblstaff.name,
+	tblproject.seq,
+	tblproject.project		-- * > 잘 안씀// 모호한 컬럼을 만들지 않기 위해 테이블 명을 앞에다 적어줌
+FROM tblstaff
+	INNER JOIN tblProject
+--		ON seq = staff_seq;	--ORA-00918: column ambiguously DEFINED 모호한 컬럼 컬럼명 중복되어서 그럼
+		ON tblstaff.seq = tblProject.staff_seq
+			ORDER BY tblProject.seq;	----그냥 seq 쓸경우 ORA-00918: column ambiguously DEFINED 모호한 컬럼 컬럼명 중복되어서 그럼
+
+-- 조인 > 테이블 별칭 자주 사용			
+SELECT				--2번
+	s.seq,	
+	s.name,
+	p.seq,
+	p.project		
+FROM tblstaff s
+	INNER JOIN tblProject p
+		ON s.seq = p.staff_seq	--1번	//부적합한 SQL 유형입니다: sqlKind = UNINITIALIZED// 이 문장에 한해서 문장 이름이 바뀌어서 에러가 뜸
+	ORDER BY p.seq;		--3번	
+
+-- 고객 테이블, 판매 테이블
+SELECT
+	c.name AS 고객명,
+	s.item AS 제품명,
+	s.qty AS 개수
+FROM tblCustomer c
+	INNER JOIN tblSales s
+		ON c.seq = s.cseq;
+	
+--관계가 명시적으로 되어있지 않아도 조인 가능	
+SELECT * FROM tblmen;	
+SELECT * FROM tblwomen;	
+
+SELECT
+	*
+FROM tblmen m
+	INNER JOIN tblwomen w
+		ON m.name = w.couple;
+	
+SELECT
+	*
+FROM tblStaff st
+	INNER JOIN tblSales sa
+		ON st.seq = sa.cseq;
+
+-- 고객명 + 판매 물품명(tblSales) > 가져오시오.
+-- 1. 조인
+SELECT
+	c.name AS 고객명,
+	s.item AS 물품명
+FROM tblCustomer c
+	INNER JOIN tblSales s
+		ON c.seq = s.cseq;
+
+-- 2. 서브쿼리 > 상관 서브 쿼리
+-- 메인쿼리 > 자식 테이블
+-- 상관 서브 쿼리 > 부모 테이블
+SELECT
+	item AS 물품명,
+	(SELECT name FROM tblCustomer WHERE seq = tblSales.cseq) AS 고객명
+FROM tblSales;
+
+	
