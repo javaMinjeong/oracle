@@ -1,5 +1,9 @@
 --16. tblAddressBook. 남자 평균 나이보다 나이가 많은 서울 태생 + 직업을 가지고 있는 사람들을 가져오시오.
 
+SELECT
+
+FROM tbladdressBook;
+
 
 -- employees. 'Munich' 도시에 위치한 부서에 소속된 직원들 명단?
 

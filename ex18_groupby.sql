@@ -260,6 +260,7 @@ FROM tblinsa
   	
  */	
 	
+	
 SELECT
 	BUSEO,
 	COUNT(*),
@@ -312,3 +313,9 @@ FROM tblinsa
 
 -- rollup > 다중 그룹 컬럼 > 수직관계(전체인원 총계, 부서별 총계)
 -- cube > 다중 그룹 컬럼 > 수평관계(전체인원 총계, 부서별 총계, 직위별 총계)
+
+SELECT
+	*
+FROM tblvideo v
+	INNER JOIN tblRent r
+		ON v.seq = r.video;
