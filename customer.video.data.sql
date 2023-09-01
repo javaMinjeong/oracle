@@ -21,7 +21,10 @@ insert into tblsales (seq, item, qty, cseq) values (9, '선풍기', 2, 1);
 commit;
 
 
-
+CREATE SEQUENCE genreSeq;
+CREATE SEQUENCE videoSeq;
+CREATE SEQUENCE memberSeq;
+CREATE SEQUENCE rentSeq;
 
 
 
@@ -76,7 +79,7 @@ INSERT INTO tblRent (seq, member, video, Rentdate, Retdate) VALUES (rentSeq.NEXT
 INSERT INTO tblRent (seq, member, video, Rentdate, Retdate) VALUES (rentSeq.NEXTVAL, 1,2,'2007-02-10',NULL);
 
 
-
+commit;
 
 
 
