@@ -104,6 +104,8 @@ ALTER TABLE tbledit
 ALTER TABLE tbledit
 	MODIFY (DATA number);	-- 데이터 비우고 해라 ORA-01439: column to be modified must be empty to change datatype
 
+DESC tblEdit;	--SQL*plus > SQL Developer 전용 명령어
+	
 DELETE FROM tbledit;
 
 SELECT * FROM tbledit;
