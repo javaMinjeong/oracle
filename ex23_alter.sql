@@ -65,3 +65,47 @@ INSERT INTO tblEdit VALUES (3, '모니터', 3000, 1);
 
 ALTER TABLE tbledit
 	ADD (color varchar2(30) DEFAULT 'white' NOT NULL );	--임의로 값을 넣어줌
+	
+SELECT * FROM tblEdit;
+
+--case 2. 컬럼 삭제하기
+ALTER TABLE tbledit
+	DROP column color;
+
+ALTER TABLE tbledit
+	DROP column qty;
+
+ALTER TABLE tbledit
+	DROP column seq;	--PK삭제 > 절대 금지!!!!!!!!!!!!!!!
+	
+-- case 3. 컬럼 수정하기
+SELECT * FROM tbledit;
+
+INSERT INTO tbledit VALUES (4, '애플, M2 맥북 프로 2023');	--ORA-12899: value too large for column "HR"."TBLEDIT"."DATA" (actual: 29, maximum: 20)
+
+-- Case 3.1 컬럼 길이 수정하기(확장/축소)
+ALTER TABLE tbledit
+	MODIFY (DATA varchar2(100));
+
+ALTER TABLE tbledit
+	MODIFY (DATA varchar2(20));		-- 기존 문장에 비해 너무 짧아짐 // ORA-01441: cannot decrease column length because some value is too big
+	
+--Case 3.2 컬럼의 제약사항 수정하기
+
+ALTER TABLE tbledit
+	MODIFY (DATA varchar(100) null);
+
+INSERT INTO tbledit VALUES (5, null);
+
+ALTER TABLE tbledit
+	MODIFY (DATA varchar(100) NOT null);
+
+-- Case 3.3 컬럼의 자료형 바꾸기 > 테이블 비우고 작업
+ALTER TABLE tbledit
+	MODIFY (DATA number);	-- 데이터 비우고 해라 ORA-01439: column to be modified must be empty to change datatype
+
+DELETE FROM tbledit;
+
+SELECT * FROM tbledit;
+
+	
