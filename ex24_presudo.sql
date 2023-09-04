@@ -56,3 +56,48 @@ SELECT name, buseo, basicpay, rownum, rnum				-- 안쪽 로우넘을 가지고 �
 from( SELECT name, buseo, basicpay, rownum AS rnum		-- 메인 쿼리: 바깥쪽에서 만든 2차 rownum// 오버라이딩 됨
       FROM tblinsa										-- 서브쿼리: 위에 rownum하고 다른 rownum임 1차 rownum하고
 	  ORDER BY basicpay DESC) WHERE rownum <= 3	;
+
+-- 급여 5~10등까지
+-- 원하는 범위 추출(1이 포함X) > rownum 사용 뷸가능
+	 --1. 내가 원하는 순서대로 정렬
+	 --2. 1을 서브쿼리로 묶는다. + rownum(rnum)
+	 --3. 2를 서브쿼리로 묶는다. + rownum(불필요 + rnum 사용(***))	
+SELECT name, buseo, basicpay, rnum, rownum
+	from( SELECT name, buseo, basicpay, rownum AS rnum			--2
+					from( SELECT name, buseo, basicpay
+					      FROM tblinsa										
+						  ORDER BY basicpay DESC)) 				--1	
+						 	WHERE rnum BETWEEN 5 AND 10;		-- rnum으로 하면 가능// 안쪽에서 이미 픽스된 값이라 where절에 영향을 받지 않음.
+
+--페이징 > 나눠서 보기 > 한번에 20명씩 보기 + 이름순으로
+SELECT * FROM tbladdressbook; --2,000
+
+--1. 
+SELECT * FROM tbladdressbook ORDER BY name ASC;
+
+
+--2. 이 때의 rownum이 필요하다.
+SELECT a.*,rownum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a ;	--*와 특정 다른 단일, 상수 컬럼을 한 번에 못적음// 붙이려면 테이블 이름과 함께
+
+--3. rownum을 조건 사용 > 한번 더 서브쿼리
+SELECT* FROM(SELECT a.*,rownum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a);
+
+SELECT* FROM(SELECT a.*,rownum AS rnum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a) where rnum BETWEEN 1 AND 20;
+
+
+SELECT* FROM(SELECT a.*,rownum AS rnum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a) where rnum BETWEEN 21 AND 40;
+
+SELECT* FROM(SELECT a.*,rownum AS rnum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a) where rnum BETWEEN 1981 AND 2000;
+
+
+SELECT* FROM(SELECT a.*,rownum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a);	--가장 바깥쪽에 있는 서브쿼리를 VIEW로 만들어서 사용해도 됨
+
+CREATE OR REPLACE VIEW viewaddressBook
+AS
+SELECT a.*,rownum AS rnum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a;		--AS 안붙이면 오류뜸!!
+
+SELECT* FROM viewaddressBook;
+
+SELECT* FROM viewaddressBook where rnum BETWEEN 1 AND 20; --아래문장하고 동일
+
+SELECT* FROM(SELECT a.*,rownum AS rnum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a) where rnum BETWEEN 1 AND 20; --이렇게 쓰는 경우가 더 많긴 함. 뷰 만드는게 더 구찮음..
