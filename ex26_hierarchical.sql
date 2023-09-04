@@ -25,18 +25,18 @@
 		
 		
 		
-	컴퓨터
-        - 본체
-            - 메인보드
+	컴퓨터--1세대
+        - 본체--2세대
+            - 메인보드--3세대
             - 그래픽카드
             - 랜카드
             - 메모리
             - CPU
-        - 모니터
-            - 보호필름
+        - 모니터--2세대
+            - 보호필름--3세대
             - 모니터암
-        - 프린터
-            - A4용지
+        - 프린터--2세대
+            - A4용지--3세대
             - 잉크카트리지
     
     카테고리
@@ -94,5 +94,33 @@ FROM tblcomputer c1				--부품 (자식)
 		ON c1.pseq = c2.seq;
 
 -- 계층형 쿼리
--- start with절 
+-- 1. start with절 + commit by 절
+-- 2. 계층형 쿼리에서만 사용 가능한 의사 컬럼들
+-- 	a.prior : 자기와 연관된 부모 레코드를 참조
+-- b. level	: 세대수 (depth, generation)
+
+--SELECT
+--*
+--FROM tblcomputer
+--	START WITH 조건	-- 루트 레코드 지정
+--		CONNECT BY 조건
+	
+	
+SELECT
+	seq AS 번호,
+	lpad(' ', (LEVEL - 1)*18)||name AS 부품명,		--들여쓰기로 계층구조 표현
+	PRIOR name AS 부모부품명,
+	LEVEL	--세대를 알 수 있움
+FROM tblcomputer
+	START WITH seq = 1 -- 루트 레코드 지정// 모든 데이터 다 보려면 가장 위/ 루트레코드 지정하면 특정그룹만 볼 수 있음
+		CONNECT BY pseq = PRIOR seq;	-- 현재 레코드와 부모 레코드를 연결하는 조건
+
+		
+SELECT
+	lpad(' ', (LEVEL -1)*18)||name,
+	PRIOR name
+FROM tblself
+	START WITH seq = 1
+		CONNECT BY super = PRIOR seq;
+	
 		
