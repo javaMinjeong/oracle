@@ -122,5 +122,30 @@ SELECT
 FROM tblself
 	START WITH seq = 1
 		CONNECT BY super = PRIOR seq;
+
+
+-- prior: 부모 레코드 참조 > 직속 상사
+-- connect_by_root: 최상위 레코드 참조 > 홍사장	
+-- connect_by_isleaf: 밑단 노드	
 	
+SELECT
+	lpad(' ', (LEVEL -1)*18)||name,
+	PRIOR name,
+	connect_by_root name,
+	CONNECT_by_isleaf, 		--최하위 노드? 자식 없는? 
+	sys_connect_by_path(name, '>')	--라인나열 꼭대기에서부터 나까지 ''이 안은 구분자
+FROM tblself
+	START WITH seq = 1
+		CONNECT BY super = PRIOR seq;	
+	
+	
+SELECT
+	seq AS 번호,
+	lpad(' ', (LEVEL - 1)*18)||name AS 부품명,		
+	PRIOR name AS 부모부품명,
+	LEVEL	
+FROM tblcomputer
+	START WITH seq = 1 
+		CONNECT BY pseq = PRIOR seq
+		ORDER siblings BY name asc;	-- 게층형 orderby 노우!! siblings 넣어서 해야함// 형제 정렬 그룹 
 		
