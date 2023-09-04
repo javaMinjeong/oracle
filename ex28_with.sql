@@ -38,3 +38,43 @@ WITH a AS (SELECT name, age, couple FROM tblmen WHERE weight < 90),
 	SELECT * FROM a
 		INNER JOIN b
 			ON a.couple = b.name;
+
+-- null 함수
+-- null value
+		
+-- 1. nvL(컬럼, 값)
+-- 2. nvL2(컬럼, 값, 값)
+
+		
+SELECT
+	name,
+	CASE
+		WHEN population IS NOT NULL THEN population
+		WHEN population IS NULL THEN 0
+	END
+FROM tblcountry;	
+		
+
+SELECT name, nvL(population, 0) FROM tblcountry;
+
+CREATE TABLE tblitem
+(
+	seq NUMBER PRIMARY KEY,
+	name varchar2(100) NOT NULL,
+	color varchar2(50) NOT null
+);
+
+--ora 01400 cannot insert null into (hr,tblitem, seq)
+INSERT INTO tblitem(seq,name,color)
+		VALUES ((SELECT nvL(max(seq),0)+1 FROM tblitem),'마우스','white');
+	
+INSERT INTO tblitem(seq,name,color)
+		VALUES (1,'마우스','white');	
+	
+SELECT * FROM tblitem;
+	
+DELETE FROM tblitem;	
+
+SELECT
+ name, nvL2(population, 'A', 'B')		--인구수 있음 a 없음 b
+FROM tblcountry;
