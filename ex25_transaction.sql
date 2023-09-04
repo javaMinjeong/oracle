@@ -7,8 +7,8 @@
 	- 1개 이상의 명령어를 묶어 놓은 단위
 	
 	트랜잭션에 관련 명령어, DCL(TCL)
-	1. COMMIT
-	2. ROLLBACK
+	1. COMMIT	--중간중간 확실할때 커밋
+	2. ROLLBACK	--안전장치
 	3. SAVEPOINT
   
   
@@ -141,5 +141,17 @@ DELETE FROM tbltrans WHERE name = '홍길동';
 SAVEPOINT b;
 
 UPDATE tbltrans SET buseo = '개발부' WHERE name = '후후후';
+
+SELECT * FROM tbltrans;
+
+ROLLBACK TO b;
+
+SELECT * FROM tbltrans;
+
+ROLLBACK TO a;
+
+SELECT * FROM tbltrans;
+
+ROLLBACK;
 
 SELECT * FROM tbltrans;
