@@ -147,5 +147,5 @@ SELECT
 FROM tblcomputer
 	START WITH seq = 1 
 		CONNECT BY pseq = PRIOR seq
-		ORDER siblings BY name asc;	-- 게층형 orderby 노우!! siblings 넣어서 해야함// 형제 정렬 그룹 
+		ORDER siblings BY name asc;	-- 게층형 커리 정렬 order by 노우!! siblings 넣어서 order siblings by 써서 해야함// 형제 정렬 그룹 
 		
