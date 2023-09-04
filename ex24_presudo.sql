@@ -101,3 +101,4 @@ SELECT* FROM viewaddressBook;
 SELECT* FROM viewaddressBook where rnum BETWEEN 1 AND 20; --아래문장하고 동일
 
 SELECT* FROM(SELECT a.*,rownum AS rnum FROM(SELECT *From tbladdressbook ORDER BY name ASC) a) where rnum BETWEEN 1 AND 20; --이렇게 쓰는 경우가 더 많긴 함. 뷰 만드는게 더 구찮음..
+
