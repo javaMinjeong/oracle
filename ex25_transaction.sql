@@ -119,3 +119,27 @@ COMMIT;
 UPDATE TBLTRANS SET jikwi = '사장' WHERE NAME ='홍길동';
 
 SELECT * FROM tbltrans;
+
+--시퀀스 객체 생성
+CREATE SEQUENCE SEQTRANS;	-- 현재 트랜잭션 COMMIT 동반
+
+ROLLBACK;
+
+SELECT * FROM tbltrans;
+
+--savepoint 라벨;
+COMMIT;
+
+SELECT * FROM tbltrans; -- 홍길동 기획부 사장
+
+INSERT INTO tbltrans VALUES ('후후후','기획부','직원');
+
+SAVEPOINT a;
+
+DELETE FROM tbltrans WHERE name = '홍길동';
+
+SAVEPOINT b;
+
+UPDATE tbltrans SET buseo = '개발부' WHERE name = '후후후';
+
+SELECT * FROM tbltrans;
