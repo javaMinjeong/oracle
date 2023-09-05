@@ -74,7 +74,10 @@ SELECT a.*, rownum from(SELECT
 
 -- 8. tblhousekeeping. 지출 내역(가격 * 수량) 중 가장 많은 금액을 지출한 내역 3가지를 가져오시오.
 
-SELECT * FROM tblhousekeeping;						
+SELECT
+*
+FROM tblhousekeeping
+	WHERE ;						
 						
 
 -- 9. tblinsa. 평균 급여 2위인 부서에 속한 직원들을 가져오시오.// select 안 select,, rownum 값 고정하고 rnum = 2로 빼내기...

@@ -133,6 +133,7 @@ INSERT INTO tblProject (seq, project, staff_seq) VALUES (5, '대리점 분양', 
 SELECT * FROM tblStaff;
 SELECT * FROM tblProject;
 
+COMMIT;
 -- 'TV 광고' 담당자!!!!!
 
 --SELECT * FROM tblStaff WHERE project = 'TV 광고';

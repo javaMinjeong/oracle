@@ -3,7 +3,9 @@
 SELECT * FROM tblstaff;
 SELECT * FROM tblproject;
 
-SELECT s.name, s.salary, s.address FROM tblstaff s;
+SELECT s.name, s.salary, s.address FROM tblstaff s
+	INNER JOIN tblproject
+		ON ;
        
 -- tblVideo, tblRent, tblMember. '뽀뽀할까요' 라는 비디오를 빌려간 회원의 이름은?
 
