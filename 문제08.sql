@@ -1,7 +1,9 @@
 
 -- tblStaff, tblProject. 현재 재직중인 모든 직원의 이름, 주소, 월급, 담당프로젝트명을 가져오시오.
-SELECT * FROM tblstaff
-       
+SELECT * FROM tblstaff;
+SELECT * FROM tblproject;
+
+SELECT s.name, s.salary, s.address FROM tblstaff s;
        
 -- tblVideo, tblRent, tblMember. '뽀뽀할까요' 라는 비디오를 빌려간 회원의 이름은?
 
