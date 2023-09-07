@@ -3,16 +3,27 @@
 SELECT * FROM tblstaff;
 SELECT * FROM tblproject;
 
-SELECT s.name, s.salary, s.address FROM tblstaff s
-	INNER JOIN tblproject
-		ON ;
+SELECT s.name, s.address, s.salary, p.project FROM tblstaff s
+	INNER JOIN tblproject p
+		ON s.seq = p.staff_seq;
        
 -- tblVideo, tblRent, tblMember. '뽀뽀할까요' 라는 비디오를 빌려간 회원의 이름은?
-
+SELECT * FROM tblvideo;
+SELECT * FROM tblrent;
+SELECT * FROM tblmember;
     
+SELECT m.name FROM tblmember m
+	INNER JOIN tblrent r
+		ON m.seq = r.seq
+			INNER JOIN tblvideo v
+				ON r.seq = v.seq
+					WHERE v.name = '뽀뽀할까요';
+	
     
 -- tblStaff, tblProejct. 'TV 광고'을 담당한 직원의 월급은 얼마인가?
-
+SELECT * FROM tblstaff;
+SELECT * FROM tblproject;
+				
     
     
 -- tblVideo, tblRent, tblMember. '털미네이터' 비디오를 한번이라도 빌려갔던 회원들의 이름은?
