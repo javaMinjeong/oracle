@@ -12,20 +12,21 @@ INSERT INTO tblClassroom VALUES ('6',26);
 
 --과정
 INSERT INTO tblCourse VALUES (courseSeq, courseName, courseStartDate, courseFinishDate, classroomName, subjectRegistrationStatus, studentNumber);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '과정명', TO_DATE('시작일자','YYYY-MM-DD') , TO_DATE('종료일자','YYYY-MM-DD'),'강의실명','과목등록여부', 교육생인원);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '과정명', TO_DATE('시작일자','YYYY-MM-DD') , TO_DATE('종료일자','YYYY-MM-DD'),'강의실명','과목등록여부', 교육생인원);
 
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '웹 애플리케이션 응용 SW 실무 개발자 양성 과정', TO_DATE('2023-03-14','YYYY-MM-DD') , TO_DATE('2023-10-13','YYYY-MM-DD'),'1','N', 30);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, 'Java&Python 기반 응용SW개발자 양성과정', TO_DATE('2023-02-20','YYYY-MM-DD') , TO_DATE('2023-09-19','YYYY-MM-DD'),'2','N', 30);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, 'Java(자바)& AWS 활용한 Full-Stack 개발자 양성과정', TO_DATE('2023-05-03','YYYY-MM-DD') , TO_DATE('2023-11-02','YYYY-MM-DD'),'3','N', 30);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '자바(Java)기반 Web & 스마트플랫폼 Full-Stack 개발자 양성과정', TO_DATE('2023-05-29','YYYY-MM-DD') , TO_DATE('2023-11-28','YYYY-MM-DD'),'4','N', 26);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '자바&스프링 기반 빅데이터 융합 개발자 양성과정', TO_DATE('2023-07-13','YYYY-MM-DD') , TO_DATE('2023-12-26','YYYY-MM-DD'),'5','N', 26);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, 'AWS 클라우드와 Elasticsearch를 활용한 Java Full-Stack 개발자 양성 과정', TO_DATE('2023-07-14','YYYY-MM-DD') , TO_DATE('2023-12-27','YYYY-MM-DD'),'6','N', 26);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, 'Java를 활용한 Full-Stack개발자 양성과정', TO_DATE('2023-11-09','YYYY-MM-DD') , TO_DATE('2024-06-05','YYYY-MM-DD'),'3','N', 30);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '공공데이터 융합 웹 애플리케이션 개발자 양성과정', TO_DATE('2023-10-26','YYYY-MM-DD') , TO_DATE('2024-05-21','YYYY-MM-DD'),'1','N', 30);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '공공데이터 융합 자바개발자 양성과정', TO_DATE('2023-09-25','YYYY-MM-DD') , TO_DATE('2024-04-23','YYYY-MM-DD'),'2','N', 30);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '정보시스템 구축·운영 기반 정보보안 전문가 양성과정', TO_DATE('2023-01-05','YYYY-MM-DD') , TO_DATE('2023-07-04','YYYY-MM-DD'),'5','N', 26);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, 'Python 활용 빅데이터 기반 금융 솔루션 UI 개발자 양성과정', TO_DATE('2022-12-12','YYYY-MM-DD') , TO_DATE('2023-07-11','YYYY-MM-DD'),'6','N', 26);
-INSERT INTO tblCourse VALUES (courseSeq.nextVal, '자바기반 반응형 UI/UX 웹 콘텐츠 개발자 양성과정', TO_DATE('2022-12-13','YYYY-MM-DD') , TO_DATE('2023-05-26','YYYY-MM-DD'),'4','N', 26);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '웹 애플리케이션 응용 SW 실무 개발자 양성 과정', TO_DATE('2023-03-14','YYYY-MM-DD') , TO_DATE('2023-10-13','YYYY-MM-DD'),'1','N', 30);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, 'Java&Python 기반 응용SW개발자 양성과정', TO_DATE('2023-02-20','YYYY-MM-DD') , TO_DATE('2023-09-19','YYYY-MM-DD'),'2','N', 30);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, 'Java(자바)& AWS 활용한 Full-Stack 개발자 양성과정', TO_DATE('2023-05-03','YYYY-MM-DD') , TO_DATE('2023-11-02','YYYY-MM-DD'),'3','N', 30);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '자바(Java)기반 Web & 스마트플랫폼 Full-Stack 개발자 양성과정', TO_DATE('2023-05-29','YYYY-MM-DD') , TO_DATE('2023-11-28','YYYY-MM-DD'),'4','N', 26);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '자바&스프링 기반 빅데이터 융합 개발자 양성과정', TO_DATE('2023-07-13','YYYY-MM-DD') , TO_DATE('2023-12-26','YYYY-MM-DD'),'5','N', 26);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, 'AWS 클라우드와 Elasticsearch를 활용한 Java Full-Stack 개발자 양성 과정', TO_DATE('2023-07-14','YYYY-MM-DD') , TO_DATE('2023-12-27','YYYY-MM-DD'),'6','N', 26);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, 'Java를 활용한 Full-Stack개발자 양성과정', TO_DATE('2023-11-09','YYYY-MM-DD') , TO_DATE('2024-06-05','YYYY-MM-DD'),'3','N', 30);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '공공데이터 융합 웹 애플리케이션 개발자 양성과정', TO_DATE('2023-10-26','YYYY-MM-DD') , TO_DATE('2024-05-21','YYYY-MM-DD'),'1','N', 30);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '공공데이터 융합 자바개발자 양성과정', TO_DATE('2023-09-25','YYYY-MM-DD') , TO_DATE('2024-04-23','YYYY-MM-DD'),'2','N', 30);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '정보시스템 구축·운영 기반 정보보안 전문가 양성과정', TO_DATE('2023-01-05','YYYY-MM-DD') , TO_DATE('2023-07-04','YYYY-MM-DD'),'5','N', 26);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, 'Python 활용 빅데이터 기반 금융 솔루션 UI 개발자 양성과정', TO_DATE('2022-12-12','YYYY-MM-DD') , TO_DATE('2023-07-11','YYYY-MM-DD'),'6','N', 26);
+INSERT INTO tbltblCourse VALUES (course_seq.nextVal, '자바기반 반응형 UI/UX 웹 콘텐츠 개발자 양성과정', TO_DATE('2022-12-13','YYYY-MM-DD') , TO_DATE('2023-05-26','YYYY-MM-DD'),'4','N', 26);
+
 
 
 
