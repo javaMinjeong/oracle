@@ -228,8 +228,7 @@ create sequence login_seq;
 CREATE TABLE tblSchedule (
 	scheduleSeq NUMBER PRIMARY KEY,
 	teacherSeq NUMBER NOT NULL REFERENCES tblTeacher(teacherSeq),
-	subjectListSeq NUMBER NOT NULL REFERENCES tblSubjectList(subjectListSeq),
-	progress VARCHAR2(30) NOT NULL CHECK (progress IN ('강의예정', '강의중', '강의종료')) 
+	subjectListSeq NUMBER NOT NULL REFERENCES tblSubjectList(subjectListSeq)
 );
 
 create sequence schedule_seq;
@@ -252,12 +251,13 @@ CREATE SEQUENCE study_seq;
 CREATE TABLE tblSubjectGrade (
 	subjectGradeSeq NUMBER PRIMARY KEY,
 	subjectListSeq NUMBER NOT NULL REFERENCES tblSubjectList(subjectListSeq),
-	attendanceGrade NUMBER DEFAULT 20 NOT NULL, 
-	writtenGrade NUMBER DEFAULT 40 NOT NULL, 
-	practicalGrade NUMBER DEFAULT 40 NOT NULL
+	attendanceGrade NUMBER, 
+	writtenGrade NUMBER, 
+	practicalGrade NUMBER
 );
 
-create sequence subject_grade_seq; 
+create sequence subject_grade_seq;
+
 
 
 -- 성적시험등록여부
@@ -350,3 +350,4 @@ create sequence interview_seq;
 -- (보류)
 -- 개근
 -- 성적우수자
+--commit;
